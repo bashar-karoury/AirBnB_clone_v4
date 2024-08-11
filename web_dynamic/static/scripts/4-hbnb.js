@@ -41,36 +41,39 @@ $(document).ready(function () {
     $('.amenities h4').text(text);
   });
 
-  // fetch places
-  $.ajax({
-    url: 'http://127.0.0.1:5001/api/v1/places_search/', // The URL to fetch data from
-    method: 'POST', // The HTTP method to use (GET, POST, etc.)
-    contentType: 'application/json', // Explicitly set Content-Type to application/json
-    dataType: 'json', // Expected data type of the response
-    data: JSON.stringify({}),
-    success: function (places) {
-      console.log('places fetched successfully');
-      for (const place of places) {
-        const newArticle = $('<article>').html(`<div class="title_box">
-        <h2>${place.name}</h2>
-        <div class="price_by_night">${place.price_by_night}</div>
-        </div>
-        <div class="information">
-          <div class="max_guest">${place.max_guest} Guests</div>
-          <div class="number_rooms">${place.number_rooms} Bedrooms</div>
-          <div class="number_bathrooms">${place.number_bathrooms} Bathrooms</div>
-        </div>
-        <div class="description">
-          ${place.description}
-        </div>`);
+  // fetch places when button is clicked
 
-        // Append the new item to the list
-        $('.places').append(newArticle);
+  $('button').on('click', function () {
+    $.ajax({
+      url: 'http://127.0.0.1:5001/api/v1/places_search/', // The URL to fetch data from
+      method: 'POST', // The HTTP method to use (GET, POST, etc.)
+      contentType: 'application/json', // Explicitly set Content-Type to application/json
+      dataType: 'json', // Expected data type of the response
+      data: JSON.stringify({ amenities: checkedAmenities }),
+      success: function (places) {
+        console.log('places fetched successfully');
+        for (const place of places) {
+          const newArticle = $('<article>').html(`<div class="title_box">
+          <h2>${place.name}</h2>
+          <div class="price_by_night">${place.price_by_night}</div>
+          </div>
+          <div class="information">
+            <div class="max_guest">${place.max_guest} Guests</div>
+            <div class="number_rooms">${place.number_rooms} Bedrooms</div>
+            <div class="number_bathrooms">${place.number_bathrooms} Bathrooms</div>
+          </div>
+          <div class="description">
+            ${place.description}
+          </div>`);
+
+          // Append the new item to the list
+          $('.places').append(newArticle);
+        }
+      },
+      error: function (xhr, status, error) {
+        // Handle errors here
+        console.error('Error occurred:', status, error);
       }
-    },
-    error: function (xhr, status, error) {
-      // Handle errors here
-      console.error('Error occurred:', status, error);
-    }
+    });
   });
 });

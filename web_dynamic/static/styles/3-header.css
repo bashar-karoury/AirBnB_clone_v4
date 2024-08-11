@@ -3,9 +3,34 @@ header {
     height: 70px;
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    /* Use Flexbox for layout */
+    justify-content: space-between;
+    /* Space items out to the far left and right */
+    align-items: center;
+    /* Center items vertically within the header */
 }
+
 header .logo {
     background: url("../images/logo.png") no-repeat;
     left: 20px;
     height: 100%;
+    width: 20%;
+    display: inline;
+}
+
+#api_status {
+    background-color: #CCCCCC;
+    width: 40px;
+    /* Set the width of the circle */
+    height: 40px;
+    /* Set the height to be equal to the width to create a circle */
+    /* Background color for the circle */
+    border-radius: 40px;
+    /* Makes the div a circle */
+    margin-right: 30px;
+}
+
+.available#api_status {
+    background-color: #ff545f;
 }
